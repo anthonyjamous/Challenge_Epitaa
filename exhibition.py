@@ -1,4 +1,9 @@
-
+"""
+Authors:
+    1. Emmanuel Bentum
+    2. Majd Nicolas 
+    3. Anthony Jamous
+""" 
 
 
 def readfile(names):
@@ -57,7 +62,7 @@ def readfile(names):
 
                         # add them in frameglass by couples of 2:
             if  len(portrait) % 2 != 0:
-                leftOvers.append(chara[len(portrait) - 2])
+                leftOvers.append(portrait[len(portrait) - 2])
 
 
         for i in range(0, len(portrait)-1):
@@ -71,9 +76,9 @@ def readfile(names):
 
 
 
-        for i in range(0, len(chara)-2 , 2):
-            output += leftOvers[i]+ " " + leftOvers[i+1]
-            numberOfFrameGlass += 1
+       # for i in range(0, len(chara)-2 , 2):
+        #    output += str(leftOvers[i].id)+ " " + str(leftOvers[i+1].id)
+         #   numberOfFrameGlass += 1
         
         with open ('out-' + name, "a") as f2:
             f2.write(str(numberOfFrameGlass) + "\n")
@@ -97,7 +102,7 @@ class FrameGlass:
 
 
 # EXECUTION
-filenames = ['1_binary_landscapes.txt', '10_computable_moments.txt', '11_randomizing_paintings',
+filenames = ['1_binary_landscapes.txt', '10_computable_moments.txt', '11_randomizing_paintings.txt',
              '110_oily_portraits.txt', '0_example.txt']
-filenamesExample = ['0_example.txt']
-readfile(filenamesExample)
+#filenamesExample = ['0_example.txt']
+readfile(filenames)
