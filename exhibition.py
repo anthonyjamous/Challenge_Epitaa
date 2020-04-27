@@ -23,9 +23,31 @@ def readfile(names):
                     if paintingstr[x] in characteristics:
                         characteristics[paintingstr[x]].append(p)
 
-                        "Key exists"
+                        "Key exists, so we append the painting"
                     else:
+                        "Key doesn't exist, so we start a new list with the painting"
                         characteristics[paintingstr[x]] = [p]
+
+
+    for chara in characteristics.values(): #we already know that they have something in common so that is where we should start
+        portrait=[]
+        for i in range(len(chara)):
+            if chara[i].type == 'L':
+                frameglassLand=FrameGlass([chara[i]])
+                #save them to an output file
+            else:
+                portrait.append(chara[i])
+        #add them in frameglass by couples of 2:
+        for i in range(0, len(portrait)-2, 2):
+            frameglassPort=FrameGlass([portrait[i], portrait[i+1]])
+            # save them to an output file
+
+
+
+
+
+
+
 
 
 class Painting:
