@@ -5,10 +5,10 @@ def readfile(names):
     for f in names:
         f = open(PATH + f, 'r')
         content1 = f.read()
-        index = 0
+        id = 0
         for line in f:
-            index += 1
-            if index == 1:
+            id += 1
+            if id == 1:
                 numberofpaintings = int(line)
             else:
                 paintingstr = line.split(' ')
@@ -17,10 +17,11 @@ def readfile(names):
                 lstcharac = []
                 for x in range(2, nbofcharacteristics + 2):
                     lstcharac.append(paintingstr[x])
+                p = Painting(type, id, lstcharac)
 
 
 class Painting:
-    def __init__(self, name, age):
+    def __init__(self, type, id, characteristics):
         self.type = type
         self.id = id
         self.characteristics = []
