@@ -4,19 +4,20 @@ PATH = 'C:/Users/antho/PycharmProjects/'
 def readfile(names):
     # hashmap to store all paintings by characteristic
     characteristics = {}
-
+    paintingId = []
     for name in names:
         f = open(PATH + name, 'r')
         id = 0
         for line in f:
-            id += 1
-            if id == 1:
+
+            if id == 0:
                 numberofpaintings = int(line)
             else:
                 paintingstr = line.rstrip().split(' ')
                 type = paintingstr[0]
                 nbofcharacteristics = paintingstr[1]
-                p = Painting(type, id)
+                p = Painting(type, id-1)
+                paintingId.append(p.id)
                 print(p.id)
                 for x in range(2, int(nbofcharacteristics) + 2):
 
@@ -27,20 +28,33 @@ def readfile(names):
                     else:
                         "Key doesn't exist, so we start a new list with the painting"
                         characteristics[paintingstr[x]] = [p]
+            id += 1
+
+        f2 = open('out-'+name, "a")
+        portrait = []
+        for chara in characteristics.values(): #we already know that they have something in common so that is where we should start
+
+            for i in range(len(chara)):
+                if chara[i].id in paintingId:
+                    if chara[i].type == 'L':
+                        frameglassLand = FrameGlass([chara[i]])
+                        # save them to an output file
+                        f2.write(str(chara[i].id))
+                        f2.write("\n")
+                        paintingId.remove(chara[i].id) # wen need to remove them from the id list , so when we come across them again, we don't re add them in a frameglass
+                    else:
+                        portrait.append(chara[i])
 
 
-    for chara in characteristics.values(): #we already know that they have something in common so that is where we should start
-        portrait=[]
-        for i in range(len(chara)):
-            if chara[i].type == 'L':
-                frameglassLand=FrameGlass([chara[i]])
-                #save them to an output file
-            else:
-                portrait.append(chara[i])
-        #add them in frameglass by couples of 2:
-        for i in range(0, len(portrait)-2, 2):
-            frameglassPort=FrameGlass([portrait[i], portrait[i+1]])
-            # save them to an output file
+            # add them in frameglass by couples of 2:
+            for i in range(0, len(portrait) - 4, 2):
+                frameglassPort = FrameGlass([portrait[i], portrait[i + 1]])
+                # save them to an output file
+                f2.write(str(chara[i].id) + " " + str(chara[i + 1]) + "\n")
+                paintingId.remove(chara[i].id)
+                paintingId.remove(chara[i + 1].id)
+        f2.close()
+
 
 
 
